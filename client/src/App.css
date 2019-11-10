@@ -7,3 +7,14 @@
   width : 50%;
   margin : 0 auto;
 }
+
+
+.code {
+  max-width : 200px;
+  color : black;
+}
+
+
+body {
+  background-color: lightcoral;
+}
