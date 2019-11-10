@@ -19,6 +19,18 @@ class App extends Component {
      this.inputChanged = this.inputChanged.bind(this);
     }
 
+    componentDidMount() {
+        const {data} = this.state;
+        fetch('http://localhost:5000/content', {
+           method : 'POST',
+           body : JSON.stringify(data),
+           header : {
+               'content-type' : 'application/json'
+           } 
+        });
+    }
+
+ 
 
 
     inputChanged(event) {
@@ -36,17 +48,12 @@ class App extends Component {
         this.setState({loading : true, done : true })
         event.preventDefault();
         const data = {
-           name :  this.state.name,
-           content : this.state.content
-        }
-        console.log(data)
-
+            name :  this.state.name,
+            content : this.state.content
+         }
+        console.log(data);
     }
-    
-   
-    
 
-  
     render() {
         const {title, name , content, loading, done} = this.state;
         return (
