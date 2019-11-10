@@ -11,6 +11,8 @@ class App extends Component {
          title : 'App For Fun',
          name : '',
          content : '',
+         loading : false ,
+         done : null
      }
      this.formSubmitted = this.formSubmitted.bind(this);
      this.inputChanged = this.inputChanged.bind(this);
@@ -30,6 +32,7 @@ class App extends Component {
  
     
     formSubmitted(event) {
+        this.setState({loading : true, done : true })
         event.preventDefault();
         console.log(event.target.value)
     }
@@ -39,7 +42,7 @@ class App extends Component {
 
   
     render() {
-        const {title, name , content} = this.state;
+        const {title, name , content, loading, done} = this.state;
         return (
             <div className = "App">
                <section className = 'title'>
@@ -48,7 +51,7 @@ class App extends Component {
                 </h1>
                 <img className = "code" src = {svg} alt = "svg"/>
                </section>
-               
+               { !done && ( 
                 <form onSubmit = {this.formSubmitted} className = "form">
                     <label htmlFor = "name">Name</label>
                     <input 
@@ -67,7 +70,10 @@ class App extends Component {
                         id = "content" 
                         name = "content"/>
                     <button type = "submit" className = "button-primary">Submit</button>
-                </form>
+                </form>)}
+                <div className = "loading">
+           {loading ? <img  src = "Facebook-1s-200px.gif" alt = "loading" /> : '' }
+      </div>
             </div>
         );
     }
