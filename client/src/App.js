@@ -8,37 +8,65 @@ class App extends Component {
     constructor() {
      super();
      this.state = {
-         title : 'App For Fun'
+         title : 'App For Fun',
+         name : '',
+         content : '',
      }
+     this.formSubmitted = this.formSubmitted.bind(this);
+     this.inputChanged = this.inputChanged.bind(this);
     }
 
 
+
+    inputChanged(event) {
+        const value = event.target.value;
+       this.setState({
+        ...this.state,
+        [event.target.name]: value
+      });
+    }
+   
+
+ 
+    
+    formSubmitted(event) {
+        event.preventDefault();
+        console.log(event.target.value)
+    }
+    
+   
+    
+
   
     render() {
-        const {title} = this.state;
+        const {title, name , content} = this.state;
         return (
             <div className = "App">
                <section className = 'title'>
                <h1 >
                     {title} 
                 </h1>
-                <img className = "code" src = {svg}/>
+                <img className = "code" src = {svg} alt = "svg"/>
                </section>
                
-                <form className = "form">
+                <form onSubmit = {this.formSubmitted} className = "form">
                     <label htmlFor = "name">Name</label>
                     <input 
+                        onChange = {this.inputChanged}
+                        value = {name}
                         className = "u-full-width" 
                         type = "text" 
                         id = "name" 
                         name = "name"/>
-                    <label htmlFor = "message">Message</label>
+                    <label htmlFor = "content">Message</label>
                     <textarea 
+                        value = {content}
+                        onChange = {this.inputChanged}
                         className = "u-full-width" 
                         type = "text" 
                         id = "content" 
                         name = "content"/>
-                    <button className = "button-primary">Submit</button>
+                    <button type = "submit" className = "button-primary">Submit</button>
                 </form>
             </div>
         );
