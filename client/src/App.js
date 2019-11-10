@@ -12,7 +12,8 @@ class App extends Component {
          name : '',
          content : '',
          loading : false ,
-         done : null
+         done : null,
+         data : {}
      }
      this.formSubmitted = this.formSubmitted.bind(this);
      this.inputChanged = this.inputChanged.bind(this);
@@ -34,7 +35,12 @@ class App extends Component {
     formSubmitted(event) {
         this.setState({loading : true, done : true })
         event.preventDefault();
-        console.log(event.target.value)
+        const data = {
+           name :  this.state.name,
+           content : this.state.content
+        }
+        console.log(data)
+
     }
     
    
