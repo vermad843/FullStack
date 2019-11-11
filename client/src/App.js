@@ -8,7 +8,7 @@ class App extends Component {
     constructor() {
      super();
      this.state = {
-         title : 'App For Fun',
+         title : 'Twitter Clone',
          name : '',
          content : '',
          loading : false ,
@@ -35,19 +35,19 @@ class App extends Component {
     formSubmitted(event) {
         this.setState({loading : true, done : true })
         event.preventDefault(); 
-        const data = {
+        const tweet = {
            name  : this.state.name,
            content  : this.state.content
         }
 
-        fetch('http://localhost:5000/content', {
+        fetch('http://localhost:5000/tweets', {
             method : 'POST',
-            body : JSON.stringify(data),
+            body : JSON.stringify(tweet),
             headers : {
                 'content-type' : 'application/json'
             } 
          });
-         console.log(data)
+         console.log(tweet)
     }
 
   
