@@ -46,8 +46,11 @@ class App extends Component {
             headers : {
                 'content-type' : 'application/json'
             } 
-         });
-         console.log(tweet)
+         }).then((res) => {
+            return res.json();
+         }).then((createdTweet) => {
+            console.log(createdTweet);
+         })
     }
 
   

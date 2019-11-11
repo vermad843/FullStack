@@ -1,8 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const Joi = require('joi');
+const monk = require('monk');
 
 const app = express();
+
+const db = monk('localhost/twitterClone');
+const tweets = db.get('tweets');
 
 app.use(cors());
 app.use(express.json());
@@ -29,6 +33,11 @@ app.post('/tweets', (req, res) => {
      content : req.body.content,
      created : new Date()
    };
+   tweets
+   .insert(tweet)
+   .then((createdTweet) => {
+     res.json(createdTweet);
+   });
   }else {
    res.status(422);
    res.json({
