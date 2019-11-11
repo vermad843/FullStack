@@ -12,8 +12,6 @@ class App extends Component {
          name : '',
          content : '',
          loading : false ,
-         done : null,
-         data : {}
      }
      this.formSubmitted = this.formSubmitted.bind(this);
      this.inputChanged = this.inputChanged.bind(this);
@@ -33,7 +31,7 @@ class App extends Component {
 
 
     formSubmitted(event) {
-        this.setState({loading : true, done : true })
+        this.setState({loading : true  })
         event.preventDefault(); 
         const tweet = {
            name  : this.state.name,
@@ -49,6 +47,11 @@ class App extends Component {
          }).then((res) => {
             return res.json();
          }).then((createdTweet) => {
+             this.setState({
+                 name : '',
+                 content : '',
+                 loading : false 
+             })
             console.log(createdTweet);
          })
     }
@@ -65,7 +68,7 @@ class App extends Component {
   
 
     render() {
-        const {title, name , content, loading, done} = this.state;
+        const {title, name , content, loading} = this.state;
         return (
             <div className = "App">
                <section className = 'title'>
@@ -74,7 +77,9 @@ class App extends Component {
                 </h1>
                 <img className = "code" src = {svg} alt = "svg"/>
                </section>
-               { !done && ( 
+              
+                <div className = "">
+               {loading ? <img  src = "Facebook-1s-200px.gif" alt = "loading" /> :  
                 <form onSubmit = {this.formSubmitted} className = "form">
                     <label htmlFor = "name">Name</label>
                     <input 
@@ -93,11 +98,9 @@ class App extends Component {
                         id = "content" 
                         name = "content"/>
                     <button type = "submit" className = "button-primary">Submit</button>
-                </form>)}
-                <div className = "loading">
-           {loading ? <img  src = "Facebook-1s-200px.gif" alt = "loading" /> : '' }
-      </div>
+                </form>}
             </div>
+       </div>
         );
     }
 }
