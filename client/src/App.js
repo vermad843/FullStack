@@ -12,14 +12,20 @@ class App extends Component {
          name : '',
          content : '',
          loading : false ,
+         tweets : []
      }
      this.formSubmitted = this.formSubmitted.bind(this);
      this.inputChanged = this.inputChanged.bind(this);
     }
 
+ 
+   
+
+  
 
 
-    inputChanged(event) {
+
+    inputChanged(event) {    
         const value = event.target.value;
        this.setState({
         ...this.state,
@@ -30,9 +36,10 @@ class App extends Component {
 
 
 
-    formSubmitted(event) {
-        this.setState({loading : true  })
+
+    formSubmitted(event) {       
         event.preventDefault(); 
+        this.setState({loading : true });
         const tweet = {
            name  : this.state.name,
            content  : this.state.content
@@ -50,25 +57,25 @@ class App extends Component {
              this.setState({
                  name : '',
                  content : '',
-                 loading : false 
+                 loading : false ,
              })
             console.log(createdTweet);
+         });
+
+         fetch('http://localhost:5000/tweets')
+         .then((res) => {
+             return res.json();
          })
+        .then(tweets => {
+             this.setState({
+               tweets  
+             });
+         });  
     }
 
   
-
- 
-
-
-  
-
- 
-    
-  
-
     render() {
-        const {title, name , content, loading} = this.state;
+        const {title, name , content, loading, tweets} = this.state;
         return (
             <div className = "App">
                <section className = 'title'>
@@ -78,8 +85,8 @@ class App extends Component {
                 <img className = "code" src = {svg} alt = "svg"/>
                </section>
               
-                <div className = "">
-               {loading ? <img  src = "Facebook-1s-200px.gif" alt = "loading" /> :  
+                <div >
+               {loading  ? <img style = {{textAlign : 'center'}} src = "Facebook-1s-200px.gif" alt = "loading" /> :  
                 <form onSubmit = {this.formSubmitted} className = "form">
                     <label htmlFor = "name">Name</label>
                     <input 
@@ -100,9 +107,21 @@ class App extends Component {
                     <button type = "submit" className = "button-primary">Submit</button>
                 </form>}
             </div>
+
+            <section>
+                 {tweets.map((tweet) => {
+                       
+                     return  <div>
+                        <h1>{tweet.name}</h1>
+                        <p>{tweet.content}</p>
+                        <h6>{tweet.created}</h6>
+                        </div>   
+                 })}
+            </section>
+             
        </div>
         );
     }
-}
+} 
 
 export default App;

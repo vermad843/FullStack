@@ -17,12 +17,20 @@ const schema = Joi.object().keys({
   content: Joi.string().min(5).max(150).trim().required()                             
 });
 
-app.get('/', (req , res) => {
+app.get('/', (req,res) => {
   res.json({
-      message : 'Hello World'
-  })  
-});
+    message : "Hello World!!!"
+  })
+})
 
+
+app.get('/tweets', (req,res) => {
+  tweets
+     .find()
+     .then((tweets) => {
+       return res.json(tweets)
+     })
+})
 
 
 app.post('/tweets', (req, res) => {
