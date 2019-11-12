@@ -19,12 +19,6 @@ class App extends Component {
     }
 
  
-   
-
-  
-
-
-
     inputChanged(event) {    
         const value = event.target.value;
        this.setState({
@@ -33,10 +27,6 @@ class App extends Component {
       });
     }
    
-
-
-
-
     formSubmitted(event) {       
         event.preventDefault(); 
         this.setState({loading : true });
@@ -67,17 +57,18 @@ class App extends Component {
              return res.json();
          })
         .then(tweets => {
+             tweets.reverse()
              this.setState({
                tweets  
              });
          });  
     }
-
+    
   
     render() {
         const {title, name , content, loading, tweets} = this.state;
         return (
-            <div className = "App">
+            <div className = "App" >
                <section className = 'title'>
                <h1 >
                     {title} 
@@ -108,16 +99,18 @@ class App extends Component {
                 </form>}
             </div>
 
-            <section>
-                 {tweets.map((tweet) => {
-                       
-                     return  <div>
-                        <h1>{tweet.name}</h1>
+            <section >
+                 { 
+                  tweets.map((tweet) => {
+                        return  <div className = "tweets" key ={tweet.id} >
+                        <h3>{tweet.name}</h3>
                         <p>{tweet.content}</p>
                         <h6>{tweet.created}</h6>
-                        </div>   
+                        
+                    </div>                
                  })}
             </section>
+      
              
        </div>
         );

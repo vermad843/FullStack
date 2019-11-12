@@ -2,11 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const Joi = require('joi');
 const monk = require('monk');
+const Filter = require('bad-words');
 
 const app = express();
 
 const db = monk('localhost/twitterClone');
 const tweets = db.get('tweets');
+const filter = new Filter();
 
 app.use(cors());
 app.use(express.json());
@@ -37,8 +39,8 @@ app.post('/tweets', (req, res) => {
   const result =Joi.validate(req.body,schema);        //validating the the req.body data 
   if(result.error === null) {
    const tweet = {
-     name : req.body.name,
-     content : req.body.content,
+     name : filter.clean(req.body.name),
+     content : filter.clean(req.body.content),
      created : new Date()
    };
    tweets
