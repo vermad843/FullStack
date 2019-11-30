@@ -3,7 +3,6 @@ import  './App.css'
 import svg from './logo.svg'
 
 
-
 class App extends Component {
     constructor() {
      super();
@@ -35,7 +34,7 @@ class App extends Component {
            content  : this.state.content
         }
 
-        fetch('http://localhost:5000/tweets', {
+        fetch('https://twitter-api.vishnuverma7524.now.sh/tweets', {
             method : 'POST',
             body : JSON.stringify(tweet),
             headers : {
@@ -52,7 +51,7 @@ class App extends Component {
             console.log(createdTweet);
          });
 
-         fetch('http://localhost:5000/tweets')
+         fetch('https://twitter-api.vishnuverma7524.now.sh/tweets')
          .then((res) => {
              return res.json();
          })
@@ -75,9 +74,8 @@ class App extends Component {
                 </h1>
                 <img className = "code" src = {svg} alt = "svg"/>
                </section>
-              
-                <div >
-               {loading  ? <img style = {{textAlign : 'center'}} src = "Facebook-1s-200px.gif" alt = "loading" /> :  
+                <div>
+               {loading  ? <img  src = "Facebook-1s-200px.gif" alt = "loading" /> :  
                 <form onSubmit = {this.formSubmitted} className = "form">
                     <label htmlFor = "name">Name</label>
                     <input 
@@ -102,16 +100,13 @@ class App extends Component {
             <section >
                  { 
                   tweets.map((tweet) => {
-                        return  <div className = "tweets" key ={tweet.id} >
+                        return  <div className ="tweets" key ={tweet.id}>
                         <h3>{tweet.name}</h3>
                         <p>{tweet.content}</p>
-                        <h6>{tweet.created}</h6>
-                        
+                        <h6>{tweet.created}</h6>  
                     </div>                
                  })}
-            </section>
-      
-             
+            </section>      
        </div>
         );
     }
