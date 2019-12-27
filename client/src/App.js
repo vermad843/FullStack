@@ -11,7 +11,8 @@ class App extends Component {
          name : '',
          content : '',
          loading : false ,
-         tweets : []
+         tweets : [
+         ]
      }
      this.formSubmitted = this.formSubmitted.bind(this);
      this.inputChanged = this.inputChanged.bind(this);
@@ -28,7 +29,9 @@ class App extends Component {
    
     formSubmitted(event) {       
         event.preventDefault(); 
-        this.setState({loading : true });
+        this.setState({loading : true,
+         tweets : []
+        });
         const tweet = {
            name  : this.state.name,
            content  : this.state.content
@@ -48,7 +51,7 @@ class App extends Component {
                  content : '',
                  loading : false ,
              })
-            console.log(createdTweet);
+             console.log(createdTweet)
          });
 
          fetch('https://twitter-api.vishnuverma7524.now.sh/tweets')
@@ -56,6 +59,7 @@ class App extends Component {
              return res.json();
          })
         .then(tweets => {
+            console.log(tweets)
              tweets.reverse()
              this.setState({
                tweets  
@@ -74,7 +78,7 @@ class App extends Component {
                 </h1>
                 <img className = "code" src = {svg} alt = "svg"/>
                </section>
-                <div>
+            <div>
                {loading  ? <img  src = "Facebook-1s-200px.gif" alt = "loading" /> :  
                 <form onSubmit = {this.formSubmitted} className = "form">
                     <label htmlFor = "name">Name</label>
@@ -96,17 +100,17 @@ class App extends Component {
                     <button type = "submit" className = "button-primary">Submit</button>
                 </form>}
             </div>
-
-            <section >
-                 { 
-                  tweets.map((tweet) => {
-                        return  <div className ="tweets" key ={tweet.id}>
+             <section>
+                {
+                    tweets.map((tweet) => {
+                        return <div key = {tweet.id} className = "tweet" >
                         <h3>{tweet.name}</h3>
-                        <p>{tweet.content}</p>
-                        <h6>{tweet.created}</h6>  
-                    </div>                
-                 })}
-            </section>      
+                        <h6>{tweet.content}</h6>
+                        <p>{tweet.created}</p> 
+                    </div>
+                    })
+                }  
+             </section>     
        </div>
         );
     }

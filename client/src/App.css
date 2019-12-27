@@ -19,25 +19,18 @@
   text-align : center;
 }
 
-body {
-  background-color: lightcoral;
-}
 
-
-.tweets{
+.tweets {
   width: 80%;
   margin: 0 auto;
   color : black;  
 }
 
-
-.tweets {
+.tweets > div {
   background: hsla(0, 0%, 95%, 0.479);
   padding: 12px;
   border-radius: 4px;
-  margin-bottom: 8px;
 }
-
 
 .tweets > div > h3 {
   word-wrap: break-word;
@@ -45,7 +38,27 @@ body {
 
 .tweets > div > p {
   word-wrap: break-word;
-  font-size : 35px;
-
+  font-size : 25px;
 }
+
+.tweets > div:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin: 1em;
+}
+
+
+body {
+  background : linear-gradient(rgba(255,0,0,0.5),rgba(0,0,0,0.5) );
+  height : 1000px;
+  background-repeat : no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  grid-template-columns: 1fr;
+}
+
 
